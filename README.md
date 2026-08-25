@@ -8,7 +8,7 @@ A complete infrastructure for running Nginx on AWS ECS using the EC2 launch type
 
 ## Architecture
 
-![Architecture Diagram](diagrams/architecture-diagram.png)
+![Architecture Diagram](diagrams/architecture.png)
 
 ---
 
