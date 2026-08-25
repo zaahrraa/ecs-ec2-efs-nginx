@@ -1,3 +1,9 @@
-output "alb_sg_id"           { value = aws_security_group.alb.id }
-output "ecs_instances_sg_id" { value = aws_security_group.ecs_instances.id }
-output "efs_sg_id"           { value = aws_security_group.efs.id }
+variable "project_name" {
+  description = "Prefix used to name all resources"
+  type        = string
+}
+
+variable "vpc_id" {
+  description = "VPC ID where security groups will be created"
+  type        = string
+}

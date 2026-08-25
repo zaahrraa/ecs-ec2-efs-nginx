@@ -17,9 +17,20 @@ locals {
     #!/bin/bash
     echo ECS_CLUSTER=${aws_ecs_cluster.main.name} >> /etc/ecs/ecs.config
     yum install -y amazon-efs-utils
+    
+    # Install and start SSM Agent
+    yum install -y amazon-ssm-agent
+    systemctl enable amazon-ssm-agent
+    systemctl start amazon-ssm-agent
+    
     mkdir -p /mnt/efs
     mount -t efs -o tls ${var.efs_id}:/ /mnt/efs
     echo "${var.efs_id}:/ /mnt/efs efs _netdev,tls 0 0" >> /etc/fstab
+    
+    # Create default index.html if it doesn't exist
+    if [ ! -f /mnt/efs/index.html ]; then
+      echo "<h1>Hello from EFS-backed Nginx</h1>" | sudo tee /mnt/efs/index.html
+    fi
   EOF
 }
 
